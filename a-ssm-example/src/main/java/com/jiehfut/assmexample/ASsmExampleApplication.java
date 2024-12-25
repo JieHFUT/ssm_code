@@ -6,12 +6,13 @@ import com.jiehfut.assmexample.datasource.DataSources;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -185,6 +186,9 @@ public class ASsmExampleApplication {
         System.out.println("运行环境 = " + dataSources);
 
 
+        /**
+         * 生命周期
+         */
 
     }
 
@@ -258,6 +262,28 @@ public class ASsmExampleApplication {
         // 按照类型加组件名称：PersonConfig(name=lisi, age=0, gender=男)
 
     }
+
+
+    /**
+     * 没有 springBoot 的时候，进行组件注册时候的操作
+     * @param args
+     */
+    public static void mainPre(String[] args) {
+        // 1.以前的 spring 需要自己创建一个 ioc 容器，从类路径下找资源
+        ClassPathXmlApplicationContext ioc =
+                new ClassPathXmlApplicationContext("classpath:ioc.xml");
+        // 也可以从文件路径下找配置
+        FileSystemXmlApplicationContext IOC =
+                new FileSystemXmlApplicationContext();
+        // 2.在 ioc.xml 配置文件中需要自己配置，原容器中是没有组件的，是一个空的；在配置中放什么组件有什么组件
+        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
+        for (String beanDefinitionName : beanDefinitionNames) {
+            System.out.println(beanDefinitionName);
+        }
+
+    }
+
+
 
 
 
