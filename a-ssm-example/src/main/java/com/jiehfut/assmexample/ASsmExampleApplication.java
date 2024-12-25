@@ -187,9 +187,24 @@ public class ASsmExampleApplication {
 
 
         /**
-         * 生命周期
+         * spring 组件的生命周期
+         * 可见在创建 ioc 容器的过程中
+         * 1.先调用组件的构造器来进行组件的创建
+         * 2.调用组件中指定的初始化方法
+         * 3.ioc 容器创建完成
+         * 4.最后使用完毕调用组件中指定的销毁方法
          */
-
+        System.out.println("====spring 组件的生命周期====");
+        SpringLifeCycle lifeCycle = ioc.getBean(SpringLifeCycle.class);
+        System.out.println("lifeCycle = " + lifeCycle);
+        // SpringLifeCycle 的无参构造器方法...
+        // @bean 创建的 s-lifecycle 组件的初始化方法
+        // 2024-12-25T16:53:42.168+08:00  INFO 17972 --- [a-ssm-example] [           main] c.j.assmexample.ASsmExampleApplication   : Started ASsmExampleApplication in 1.028 seconds (process running for 1.835)
+        // ioc = org.springframework.context.annotation.AnnotationConfigApplicationContext@7749bf93, started on Wed Dec 25 16:53:41 CST 2024
+        // =====ioc 容器创建完成========
+        // ====spring 组件的生命周期====
+        // lifeCycle = SpringLifeCycle(id=0, name=null)
+        // @bean 创建的 s-lifecycle 组件的销毁方法
     }
 
 
@@ -268,20 +283,20 @@ public class ASsmExampleApplication {
      * 没有 springBoot 的时候，进行组件注册时候的操作
      * @param args
      */
-    public static void mainPre(String[] args) {
-        // 1.以前的 spring 需要自己创建一个 ioc 容器，从类路径下找资源
-        ClassPathXmlApplicationContext ioc =
-                new ClassPathXmlApplicationContext("classpath:ioc.xml");
-        // 也可以从文件路径下找配置
-        FileSystemXmlApplicationContext IOC =
-                new FileSystemXmlApplicationContext();
-        // 2.在 ioc.xml 配置文件中需要自己配置，原容器中是没有组件的，是一个空的；在配置中放什么组件有什么组件
-        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
-        for (String beanDefinitionName : beanDefinitionNames) {
-            System.out.println(beanDefinitionName);
-        }
-
-    }
+//    public static void mainPre(String[] args) {
+//        // 1.以前的 spring 需要自己创建一个 ioc 容器，从类路径下找资源
+//        ClassPathXmlApplicationContext ioc =
+//                new ClassPathXmlApplicationContext("classpath:ioc.xml");
+//        // 也可以从文件路径下找配置
+//        FileSystemXmlApplicationContext IOC =
+//                new FileSystemXmlApplicationContext();
+//        // 2.在 ioc.xml 配置文件中需要自己配置，原容器中是没有组件的，是一个空的；在配置中放什么组件有什么组件
+//        String[] beanDefinitionNames = ioc.getBeanDefinitionNames();
+//        for (String beanDefinitionName : beanDefinitionNames) {
+//            System.out.println(beanDefinitionName);
+//        }
+//
+//    }
 
 
 
