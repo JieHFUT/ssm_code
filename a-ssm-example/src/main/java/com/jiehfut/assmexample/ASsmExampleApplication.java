@@ -6,16 +6,16 @@ import com.jiehfut.assmexample.controller.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 主入口类别
  * 程序启动的入口
  */
+
 @SpringBootApplication
 public class ASsmExampleApplication {
-
 
     public static void main(String[] args) {
         ConfigurableApplicationContext ioc = SpringApplication.run(ASsmExampleApplication.class, args);
@@ -41,7 +41,7 @@ public class ASsmExampleApplication {
          * dog2 = Dog(name=dog, age=0)
          *
          * 组件术语框架的一些底层配置
-         * 可见容器在启动过程中就会创建组件对象
+         * 可见容器在启动过程中就会创建组件对象，把单实例的对象创建完毕
          * 组件在容器中是单实例的，每次获取直接从容器中拿就可以了
          *
          * 可以使用配置类来进行分类管理组件
@@ -53,15 +53,58 @@ public class ASsmExampleApplication {
          * 1.@Controller 控制器组件
          * 2.@Service    服务层组件
          * 3.@Repository 持久层组件
-         * 4.@Conponent  其他组件
+         * 4.@Component  其他组件
+         * 5.@ComponentScan(basePackages = "com.jiehfut") 主程序使用该注解设置扫描路径 => 批量扫描该路径下使用注解的组件
          *
          */
         UserController userController = ioc.getBean(UserController.class);
         System.out.println("userController = " + userController);
         // userController = com.jiehfut.assmexample.controller.UserController@2d84cb86
 
+        /**
+         * 导入第三方组件
+         * 1.自己 new 出来一个对象后使用 @Bean 将其注册进容器中
+         * 2.通过注解导入 @Import(Arrays.class) 整个项目标注一次即可，可以专门写一个配置类进行整合
+         */
+        Map map = ioc.getBean(HashMap.class);
+        System.out.println("map = " + map); // map = {}
+
+
+        /**
+         * @Scope 调整组件的作用域
+         * 1.@Scope("prototype")，表示该组件为 非单实例
+         *     容器启动的时候不会创建非单实例对象，什么时候获取什么时候创建
+         *     为
+         * 2.@Scope("singleton")，表示该组件为 单实例，默认值
+         *     容器启动会创建单实例对象，容器启动完成前会创建该组件对象
+         *     可以使用 @lazy 注解表明该组件为懒加载
+         * 3.@Scope("request")，表示该组件为 同一个请求的单实例
+         * 4.@Scope("session")，表示该组件为 同一次会话的单实例
+         *
+         */
+        Object firstCat = ioc.getBean("first-cat");
+        System.out.println("firstCat = " + firstCat);
+        // first-cat 组件使用 @Scope("prototype") 修饰，可见在 ioc 容器启动过程中没有进行创建，在获取该对象的时候才会创建该组件
+
+        Object secondCat = ioc.getBean("second-cat");
+        System.out.println("secondCat = " + secondCat);
+        // second-cat 组件使用 @scope("singleton") && @lazy 注解使该组件在使用的时候才会创建，不会在容器启动的时候就去创建
+
+        /**
+         * 还可以使用 FacyoryBean 进行组件的创建
+         * FacyoryBean 是一种特殊的组件
+         *
+         */
+
 
     }
+
+
+
+
+
+
+
 
 
 
