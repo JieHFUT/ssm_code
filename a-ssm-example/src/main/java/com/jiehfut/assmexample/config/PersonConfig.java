@@ -6,6 +6,7 @@ import com.jiehfut.assmexample.condition.WindowsCondition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 
 @Configuration   // 告诉 spring 这是一个配置类
@@ -16,6 +17,7 @@ public class PersonConfig {
      容器中的每一个组件都有自己的名字，方法名字就是组件的名字（注解的 value 值会覆盖方法名）
      */
     @Bean("person")
+    @Primary // 声明为主组件，默认组件
     public Person personBean() {
         Person person = new Person();
         person.setName("person");

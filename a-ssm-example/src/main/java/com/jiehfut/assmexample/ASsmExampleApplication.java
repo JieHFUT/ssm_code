@@ -2,6 +2,7 @@ package com.jiehfut.assmexample;
 
 import com.jiehfut.assmexample.bean.Car;
 import com.jiehfut.assmexample.bean.Dog;
+import com.jiehfut.assmexample.bean.Duck;
 import com.jiehfut.assmexample.bean.Person;
 import com.jiehfut.assmexample.controller.UserController;
 import org.springframework.boot.SpringApplication;
@@ -134,10 +135,23 @@ public class ASsmExampleApplication {
         System.out.println("property = " + property);
 
 
+        /**
+         * 测试 spring 自带的进行判断的条件
+         */
+        System.out.println("测试 spring 自带的进行判断的条件：");
+        Map<String, Duck> beansOfType2 = ioc.getBeansOfType(Duck.class);
+        for (Map.Entry<String, Duck> entry : beansOfType2.entrySet()) {
+            System.out.println(entry.getKey() + " = " + entry.getValue());
+        }
 
 
-
-
+        /**
+         * 组件的依赖注入
+         * 先类型，后名字
+         */
+        System.out.println("组件的依赖注入：");
+        UserController controller = ioc.getBean(UserController.class);
+        System.out.println(controller);
     }
 
 
