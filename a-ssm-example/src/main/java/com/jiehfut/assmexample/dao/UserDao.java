@@ -3,7 +3,6 @@ package com.jiehfut.assmexample.dao;
 
 import com.jiehfut.assmexample.bean.Duck;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +27,9 @@ public class UserDao {
 //        System.out.println("UserDao 带参 setter 方法..." + duck);
 //        this.duck = duck;
 //    }
+
+
+
 
 
 
