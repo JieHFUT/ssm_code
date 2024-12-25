@@ -188,26 +188,38 @@ public class ASsmExampleApplication {
          * spring 组件的生命周期
          * 可见在创建 ioc 容器的过程中
          * 1.先调用组件的构造器来进行组件的创建
-         *   进行属性注入
+         *   进行属性注入 setter
+         *   这是注解 @PostConstruct 标明的用于在构造器完成之后进行执行的方法...
+         *   InitializingBean 接口中的方法，在所有的赋值完成之后执行：afterPropertiesSet
          * 2.调用组件中指定的初始化方法
          *   ioc 容器创建完成
          *   运行中...
+         *   这是注解 @PreDestroy 标明的用于在组件销毁之前进行执行的方法...
+         *   DisposableBean 接口中的方法，在所有的赋值完成之后执行：destroy
          * 3.最后使用完毕调用组件中指定的销毁方法
          *
          */
-        System.out.println("====spring 组件的生命周期====");
+        System.out.println("====spring 组件的生命周期 ==== 运行 ====");
         SpringLifeCycle lifeCycle = ioc.getBean(SpringLifeCycle.class);
         System.out.println("lifeCycle = " + lifeCycle);
+
         // SpringLifeCycle 的无参构造器方法...
         // chery factory 正在制造汽车...
         // SpringLifeCycle 进行依赖注入Car(brand=chery, model=small, color=red)
+        // 这是注解 @PostConstruct 标明的用于在构造器完成之后进行执行的方法...
+        // InitializingBean 接口中的方法，在所有的赋值完成之后执行：afterPropertiesSet...
         // @bean 创建的 s-lifecycle 组件的初始化方法
-        // 2024-12-25T16:53:42.168+08:00  INFO 17972 --- [a-ssm-example] [           main] c.j.assmexample.ASsmExampleApplication   : Started ASsmExampleApplication in 1.028 seconds (process running for 1.835)
-        // ioc = org.springframework.context.annotation.AnnotationConfigApplicationContext@7749bf93, started on Wed Dec 25 16:53:41 CST 2024
-        // =====ioc 容器创建完成========
-        // ====spring 组件的生命周期====
-        // lifeCycle = SpringLifeCycle(id=0, name=null)
+        // 2024-12-25T17:28:27.559+08:00  INFO 8916 --- [a-ssm-example] [           main] c.j.assmexample.ASsmExampleApplication   : Started ASsmExampleApplication in 1.086 seconds (process running for 1.546)
+        // ===== ioc 容器创建完成 =======
+        // ====spring 组件的生命周期 ==== 运行 ====
+        // lifeCycle = SpringLifeCycle(id=0, name=null, car=Car(brand=chery, model=small, color=red))
+        // 这是注解 @PreDestroy 标明的用于在组件销毁之前进行执行的方法...
+        // DisposableBean 接口中的方法，在所有的赋值完成之后执行：destroy...
         // @bean 创建的 s-lifecycle 组件的销毁方法
+
+
+
+
     }
 
 
