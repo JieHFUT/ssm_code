@@ -7,6 +7,8 @@ import com.jiehfut.assmexample.controller.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +94,8 @@ public class ASsmExampleApplication {
         // second-cat 组件使用 @scope("singleton") && @lazy 注解使该组件在使用的时候才会创建，不会在容器启动的时候就去创建
 
 
+
+
         /**
          * 还可以使用 FacyoryBean 进行组件的创建
          * FacyoryBean 是一种特殊的组件
@@ -104,6 +108,34 @@ public class ASsmExampleApplication {
         Map<String, Car> beansOfType = ioc.getBeansOfType(Car.class);
         System.out.println(beansOfType);
         // {cheryFactory=Car(brand=chery, model=small, color=red)}
+
+
+
+
+
+        /**
+         * 根据条件来创建组件（条件注册）
+         * 判断当前电脑的操作系统是 Windows 还是 Mac
+         * 如果是 Windows 系统，容器中放置 bill
+         *       Mac 系统，容器中放置 jo
+         * @Conditional(WindowsCondition.class) 如果标注在类头上，表示如果不满足条件，该类不起作用
+         */
+        // 打印所有的 Person 对象
+        System.out.println("打印所有的 person 对象，检查根据条件来创建组件的结果：");
+        Map<String, Person> beansOfType1 = ioc.getBeansOfType(Person.class);
+        for (Map.Entry<String, Person> entry : beansOfType1.entrySet()) {
+            System.out.println(entry.getKey() + " = " + entry.getValue());
+        }
+        // 拿到环境变量
+        ConfigurableEnvironment environment = ioc.getEnvironment();
+        // 拿到操作系统
+        String property = environment.getProperty("OS");
+        // 当前电脑的操作系统
+        System.out.println("property = " + property);
+
+
+
+
 
 
     }

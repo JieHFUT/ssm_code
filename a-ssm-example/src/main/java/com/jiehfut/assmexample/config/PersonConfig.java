@@ -1,7 +1,10 @@
 package com.jiehfut.assmexample.config;
 
 import com.jiehfut.assmexample.bean.Person;
+import com.jiehfut.assmexample.condition.MacCondition;
+import com.jiehfut.assmexample.condition.WindowsCondition;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 
@@ -34,6 +37,34 @@ public class PersonConfig {
         person.setName("lisi");
         person.setAge(0);
         person.setGender("男");
+        return person;
+    }
+
+
+
+    /**
+     * 根据条件来创建组件
+     * 判断当前电脑的操作系统是 Windows 还是 Mac
+     * 如果是 Windows 系统，容器中放置 bill
+     *       Mac 系统，容器中放置 jobs
+     */
+
+    @Bean("bill")
+    @Conditional(WindowsCondition.class) // 满足条件就把 bill 的组件注册到 ioc 容器中
+    public Person bill() {
+        Person person = new Person();
+        person.setName("bill");
+        person.setAge(67);
+        person.setGender("female");
+        return person;
+    }
+    @Bean("jobs")
+    @Conditional(MacCondition.class) // 满足条件就把 jobs 的组件注册到 ioc 容器中
+    public Person jobs() {
+        Person person = new Person();
+        person.setName("jobs");
+        person.setAge(78);
+        person.setGender("female");
         return person;
     }
 
