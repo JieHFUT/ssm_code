@@ -6,8 +6,6 @@ import com.jiehfut.assmexample.datasource.DataSources;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.util.ResourceUtils;
 
@@ -190,14 +188,19 @@ public class ASsmExampleApplication {
          * spring 组件的生命周期
          * 可见在创建 ioc 容器的过程中
          * 1.先调用组件的构造器来进行组件的创建
+         *   进行属性注入
          * 2.调用组件中指定的初始化方法
-         * 3.ioc 容器创建完成
-         * 4.最后使用完毕调用组件中指定的销毁方法
+         *   ioc 容器创建完成
+         *   运行中...
+         * 3.最后使用完毕调用组件中指定的销毁方法
+         *
          */
         System.out.println("====spring 组件的生命周期====");
         SpringLifeCycle lifeCycle = ioc.getBean(SpringLifeCycle.class);
         System.out.println("lifeCycle = " + lifeCycle);
         // SpringLifeCycle 的无参构造器方法...
+        // chery factory 正在制造汽车...
+        // SpringLifeCycle 进行依赖注入Car(brand=chery, model=small, color=red)
         // @bean 创建的 s-lifecycle 组件的初始化方法
         // 2024-12-25T16:53:42.168+08:00  INFO 17972 --- [a-ssm-example] [           main] c.j.assmexample.ASsmExampleApplication   : Started ASsmExampleApplication in 1.028 seconds (process running for 1.835)
         // ioc = org.springframework.context.annotation.AnnotationConfigApplicationContext@7749bf93, started on Wed Dec 25 16:53:41 CST 2024
