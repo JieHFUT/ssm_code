@@ -1,5 +1,6 @@
 package com.jiehfut.assmexample;
 
+import com.jiehfut.assmexample.bean.Car;
 import com.jiehfut.assmexample.bean.Dog;
 import com.jiehfut.assmexample.bean.Person;
 import com.jiehfut.assmexample.controller.UserController;
@@ -90,11 +91,19 @@ public class ASsmExampleApplication {
         System.out.println("secondCat = " + secondCat);
         // second-cat 组件使用 @scope("singleton") && @lazy 注解使该组件在使用的时候才会创建，不会在容器启动的时候就去创建
 
+
         /**
          * 还可以使用 FacyoryBean 进行组件的创建
          * FacyoryBean 是一种特殊的组件
          *
+         * FacyoryBean 在容器中放置的组件的类型是接口中指定的泛型
+         *             组件名称是工厂自己的名字
          */
+        Car car = ioc.getBean(Car.class);
+        System.out.println("car = " + car);
+        Map<String, Car> beansOfType = ioc.getBeansOfType(Car.class);
+        System.out.println(beansOfType);
+        // {cheryFactory=Car(brand=chery, model=small, color=red)}
 
 
     }
