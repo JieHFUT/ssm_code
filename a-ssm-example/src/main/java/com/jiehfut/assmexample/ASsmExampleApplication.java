@@ -2,6 +2,7 @@ package com.jiehfut.assmexample;
 
 import com.jiehfut.assmexample.bean.Dog;
 import com.jiehfut.assmexample.bean.Person;
+import com.jiehfut.assmexample.controller.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -44,8 +45,21 @@ public class ASsmExampleApplication {
          * 组件在容器中是单实例的，每次获取直接从容器中拿就可以了
          *
          * 可以使用配置类来进行分类管理组件
+         * 配置类也是一个组件
          *
          */
+
+        /**
+         * 1.@Controller 控制器组件
+         * 2.@Service    服务层组件
+         * 3.@Repository 持久层组件
+         * 4.@Conponent  其他组件
+         *
+         */
+        UserController userController = ioc.getBean(UserController.class);
+        System.out.println("userController = " + userController);
+        // userController = com.jiehfut.assmexample.controller.UserController@2d84cb86
+
 
     }
 
@@ -107,7 +121,6 @@ public class ASsmExampleApplication {
         Object lisi = ioc.getBean("lisi");
         System.out.println("组件名称一定全局唯一：李四 = " + lisi);
         // 组件名称一定全局唯一：李四 = PersonConfig(name=lisi, age=0, gender=男)
-
 
 
         // todo:按照类型加名字
