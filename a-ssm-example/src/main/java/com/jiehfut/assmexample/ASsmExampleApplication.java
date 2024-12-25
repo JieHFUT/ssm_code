@@ -1,9 +1,6 @@
 package com.jiehfut.assmexample;
 
-import com.jiehfut.assmexample.bean.Car;
-import com.jiehfut.assmexample.bean.Dog;
-import com.jiehfut.assmexample.bean.Duck;
-import com.jiehfut.assmexample.bean.Person;
+import com.jiehfut.assmexample.bean.*;
 import com.jiehfut.assmexample.controller.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -152,6 +149,16 @@ public class ASsmExampleApplication {
         System.out.println("组件的依赖注入：");
         UserController controller = ioc.getBean(UserController.class);
         System.out.println(controller);
+
+
+        /**
+         * 使用 @Value 注解对类的默认属性进行赋值
+         */
+        Chicken chicken = ioc.getBean(Chicken.class);
+        System.out.println("chicken = " + chicken);
+        // chicken = Chicken(name=胖大鸡, age=4, high=260,
+        // id=6bff7b4f-d123-4af0-82a8-5b421c4e70d8, message=hello, flag=false, method=you never know)
+
     }
 
 
