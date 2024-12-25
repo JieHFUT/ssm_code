@@ -2,11 +2,17 @@ package com.jiehfut.assmexample;
 
 import com.jiehfut.assmexample.bean.*;
 import com.jiehfut.assmexample.controller.UserController;
+import com.jiehfut.assmexample.datasource.DataSources;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.util.ResourceUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +24,7 @@ import java.util.Map;
 @SpringBootApplication
 public class ASsmExampleApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ConfigurableApplicationContext ioc = SpringApplication.run(ASsmExampleApplication.class, args);
         System.out.println("ioc = " + ioc);
 
@@ -158,11 +164,29 @@ public class ASsmExampleApplication {
         System.out.println("chicken = " + chicken);
         // chicken = Chicken(name=胖大鸡, age=4, high=260,
         // id=6bff7b4f-d123-4af0-82a8-5b421c4e70d8, message=hello, flag=false, method=you never know)
+        // 取不到使用默认值
+        Horse horse = ioc.getBean(Horse.class);
+        System.out.println("horse = " + horse);
+
+
+        /**
+         * 使用 @ResourceUtils 获取资源
+         */
+        File file = ResourceUtils.getFile("classpath:路飞幼态.jpg");
+        System.out.println("file = " + file);
+        int length = new FileInputStream(file).available();
+        System.out.println("文件大小：length = " + length); // 文件大小：length = 37042
+
+        /**
+         * 多环境，多数据源
+         * application.properties 配置运行环境
+         */
+        DataSources dataSources = ioc.getBean(DataSources.class);
+        System.out.println("运行环境 = " + dataSources);
+
+
 
     }
-
-
-
 
 
 
@@ -232,6 +256,7 @@ public class ASsmExampleApplication {
         Person lisi1 = ioc.getBean("lisi", Person.class);
         System.out.println("按照类型加组件名称：" + lisi1);
         // 按照类型加组件名称：PersonConfig(name=lisi, age=0, gender=男)
+
     }
 
 
