@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-/**
+    /**
      * 下面是四个通知方法
      * 通过写切入表达式来说明通知方法什么时候执行
      * 1.在什么时候运行
@@ -21,6 +21,13 @@ import java.util.Arrays;
      *  设置切入点和通知类型：value：切入点表达式配置切入点：即对哪个目标方法进行前置通知
      *     "execution(public int com.jiehfut.aop.annotationaop.CalculatorImpl.add(int, int ))"
      *     "访问修饰符 增强方法返回类型 增强方法所在类全路径.方法名称（方法参数）"
+     *     [public] int [com.jiehfut.aop.annotationaop.CalculatorImpl].add(int, int )
+     *     省略写法：int add(int i, int j)
+     *     通配符号
+     *     *   ：表示任意字符
+     *     ..  ：如果在参数位置，代表多个参数，任意类型
+     *           如果在类型位置，代表多个层级
+     *     最省略；* *(..)
      */
 
 // 切面类
@@ -52,7 +59,7 @@ public class LogAspect {
         System.out.println("Logger-->前置通知，方法名称是：" + name + "，参数是：" + Arrays.toString(args));
     }
 
-    
+
     // 2.后置 @After()、
     // @After(value = "pointCut()")
     // @After(value = "com.jiehfut.aop.annotationaop.LogAspect.pointCut()")
