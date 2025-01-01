@@ -5,6 +5,7 @@ import com.jiehfut.bssmaop.calculator.impl.*;
 import com.jiehfut.bssmaop.service.UserService;
 import com.jiehfut.bssmaop.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class CalculatorTest {
 
@@ -43,13 +44,13 @@ public class CalculatorTest {
         calculator.add(2, 3);
     }
 
-
+    
     @Test
     public void testUserService(){
         DynamicProxy dynamicProxy = new DynamicProxy(new UserServiceImpl());
         UserService service = (UserService) dynamicProxy.getProxy();
         service.saveUser();
     }
-    
+
 
 }

@@ -28,6 +28,8 @@ import java.util.Arrays;
      *     ..  ：如果在参数位置，代表多个参数，任意类型
      *           如果在类型位置，代表多个层级
      *     最省略；* *(..)
+     *
+     *
      */
 
 // 切面类
@@ -61,6 +63,9 @@ public class LogAspect {
 
 
     // 2.后置 @After()、
+    // @After("args(int, int)")：只要参数是两个 int 就切
+    // @After("args(org.springframework.beans.factory.annotation.Qualifier)") 有这个注解就切
+    // @After("args(com.jiehfut.bssmaop.service.impl.UserServiceImpl)") 是这个类就切
     // @After(value = "pointCut()")
     // @After(value = "com.jiehfut.aop.annotationaop.LogAspect.pointCut()")
     // @After(value = "execution(* com.jiehfut.aop.annotationaop.CalculatorImpl.*(..))")
