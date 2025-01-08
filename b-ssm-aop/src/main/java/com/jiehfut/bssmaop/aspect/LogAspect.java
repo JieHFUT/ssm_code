@@ -48,10 +48,6 @@ public class LogAspect {
 
 
 
-
-
-
-
     // 1.前置 @Before(value = "切入点表达式配置切入点")、
     @Before(value = "execution(public int com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.add(int, int ))")
     public void beforeMethod(JoinPoint joinPoint) {
