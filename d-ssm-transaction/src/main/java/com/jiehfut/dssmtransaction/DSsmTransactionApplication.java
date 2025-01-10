@@ -2,6 +2,7 @@ package com.jiehfut.dssmtransaction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
+@EnableTransactionManagement // 开启基于注解的事务功能
 public class DSsmTransactionApplication {
 
     public static void main(String[] args) {

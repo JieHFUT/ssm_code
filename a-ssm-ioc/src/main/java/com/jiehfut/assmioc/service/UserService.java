@@ -43,6 +43,7 @@ public class UserService {
      * @Autowired 是 package org.springframework.beans.factory.annotation; 为 spring 规范的接口
      * @Resource 是 package jakarta.annotation; 为 java 规范的接口
      * 面向接口规范，Resource 具有更强的通用性，如果更改框架，Resource 通用，但是 Autowired 不通用
+     *
      * @Autowired 支持某类型组件为空 @Autowired(required = false)的情况，没有该类型组件就为 null
      * @Resource 不支持
      */
