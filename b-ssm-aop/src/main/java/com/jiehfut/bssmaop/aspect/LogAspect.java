@@ -4,6 +4,7 @@ package com.jiehfut.bssmaop.aspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -67,6 +68,10 @@ import java.util.Arrays;
      * @annotation(annotation-type)：方法上有没有标注注解
      *
      *
+     * JoinPoint joinPoint：封装了当前目标方法的全部信息
+     * joinPoint.getSignature()：拿到方法全签名 public int com.jiehfut.aop.annotationaop.CalculatorImpl.add(int, int)
+     * MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+     *
      *
      */
 
@@ -88,6 +93,18 @@ public class LogAspect {
     // 1.前置 @Before(value = "切入点表达式配置切入点")、
     @Before(value = "execution(public int com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.add(int, int ))")
     public void beforeMethod(JoinPoint joinPoint) {
+
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        signature.getMethod(); // 方法名称
+        signature.getReturnType();// 返回值类型
+        signature.getDeclaringType(); // 哪个类声明的该方法
+        signature.getExceptionTypes(); // 异常类型
+        signature.getModifiers(); // 访问权限修饰符号
+        signature.getName(); // 方法名称
+        signature.getParameterTypes(); // 参数类型
+        signature.getParameterNames(); // 参数名称
+        joinPoint.getArgs(); // 目标方法传递的参数值
+
         // 使用 joinPoint 可以获得增强方法的相关信息
         String name = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
