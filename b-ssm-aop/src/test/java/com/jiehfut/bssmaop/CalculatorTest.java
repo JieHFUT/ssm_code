@@ -6,7 +6,6 @@ import com.jiehfut.bssmaop.service.UserService;
 import com.jiehfut.bssmaop.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
@@ -89,6 +88,14 @@ public class CalculatorTest {
          * 目标方法执行之前会进行很多回调 => 增强器（类 - advised - advisors - 集合里嵌入了增强器链）
          * 切面中的所有通知方法就为增强器，这些增强器会被组织成为一个链路放到集合中
          * 目标方法真正执行前后会去增强器链中执行需要提前执行的方法
+         *
+         * AOP 的底层原理：
+         *     spring 会为每个被切面切入的组件创建代理对象（CGLIB 创建的代理对象，无视接口）
+         *     代理对象中保存了切面类中的所有通知方法的增强器链
+         *     目标方法执行的时候，会去先执行增强器链中需要提前执行的通知方法
+         *
+         * 通知方法的执行顺序
+         *     没有异常：前置通知、目标方法、
          */
     }
 
