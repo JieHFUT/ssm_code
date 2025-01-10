@@ -75,7 +75,7 @@ import java.util.Arrays;
      *
      */
 
-// 切面类
+// 日志切面类
 @Aspect // 表示是一个切面类
 @Component // 表示在 ioc 容器中进行管理
 public class LogAspect {
@@ -128,7 +128,7 @@ public class LogAspect {
     }
 
 
-    // 3.返回 @AfterReturning、增强方法可以得到目标方法的返回值：returning = "result"
+    // 3.返回 @AfterReturning、增强方法可以得到目标方法的返回值（声明返回值的接受类）：returning = "result"
     @AfterReturning(value = "execution(* com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.*(..))", returning = "result")
     public void afterReturning(JoinPoint joinPoint, Object result) {
         // 使用 joinPoint 可以获得增强方法的相关信息
@@ -137,7 +137,7 @@ public class LogAspect {
     }
 
 
-    // 4.异常 @AfterThrowing、如果你的目标方法执行过程中出现了异常就会执行，否则不会执行
+    // 4.异常 @AfterThrowing、如果你的目标方法执行过程中出现了异常就会执行，否则不会执行（声明异常的接收类）
     @AfterThrowing(value = "execution(* com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.*(..))", throwing = "ex")
     public void afterThrowing(JoinPoint joinPoint, Exception ex) {
         // 使用 joinPoint 可以获得增强方法的相关信息
@@ -155,15 +155,14 @@ public class LogAspect {
         String argsStr = Arrays.toString(args);
         Object result = null;
         try{
-            System.out.println("环绕通知 => 目标方法之前执行");
+            System.out.println("环绕通知（Logger） => 目标方法之前执行");
             // 通过 ProceedingJoinPoint 调用目标方法
             result = joinPoint.proceed();
-
-            System.out.println("环绕通知 => 目标方法返回值之后执行");
+            System.out.println("环绕通知（Logger） => 目标方法返回值之后执行");
         } catch (Throwable throwable) {
-            System.out.println("环绕通知 => 目标方法出现异常执行");
+            System.out.println("环绕通知（Logger） => 目标方法出现异常执行");
         } finally {
-            System.out.println("环绕通知 => 目标方法执行完毕后执行");
+            System.out.println("环绕通知（Logger） => 目标方法执行完毕后执行");
         }
         return result;
     }
@@ -176,4 +175,8 @@ public class LogAspect {
 
 }
 
-// 切面的优先级 @Order() 来控制
+/**
+ * 切面的优先级 @Order() 来控制
+ * 如果某一个切入点被不止一个切面类切入，切面顺序是什么？（多切面的执行顺序）
+ *
+ */
