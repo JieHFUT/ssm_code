@@ -40,7 +40,7 @@ public class LifeCycleBeanPostProcessor implements BeanPostProcessor {
     /**
      * ********* SpringLifeCycle 的无参构造器方法...
      * chery factory 正在制造汽车...
-     * ********* SpringLifeCycle 进行依赖注入Car(brand=chery, model=small, color=red)
+     * ********* SpringLifeCycle 进行依赖注入（setCar） Car(brand=chery, model=small, color=red)
      *
      *
      * 后置处理器 postProcessBeforeInitialization 在初始化之前执行...s-lifecycle

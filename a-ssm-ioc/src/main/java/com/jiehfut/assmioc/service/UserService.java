@@ -35,6 +35,7 @@ public class UserService {
 
     @Resource // 该注解也可以进行依赖注入
     UserDao userDao;
+
     /**
      * @Autowired
      * @Resource

@@ -14,7 +14,7 @@ public class DynamicProxy {
     // 需要代理的目标对象
     private Object target;
 
-    public  DynamicProxy(Object target) {
+    public DynamicProxy(Object target) {
         this.target = target;
     }
 
@@ -43,7 +43,7 @@ public class DynamicProxy {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 try {
-                    // 记录日志开始
+                    // todo：log.LogUtils 记录日志开始
                     LogUtils.logStart(method, args);
                     // System.out.println("[动态代理][日志] "+method.getName()+"，参数："+ Arrays.toString(args));
                     //////////************/////////////

@@ -15,9 +15,9 @@ public class Chicken {
 
     /**
      * 使用 @Value 注解给属性默认值
-     * 1.@Value("字面值")：直接赋值
-     * 2.@Value("${}")：动态从配置文件中取出某一项的值
-     * 3.@Value("#{SpEL}")，SPRING EXPRESSION LANGUAGE：spring 表达式语言
+     * 1. @Value("字面值")：直接赋值
+     * 2. @Value("${}")：动态从配置文件中取出某一项的值
+     * 3. @Value("#{SpEL}")，SPRING EXPRESSION LANGUAGE：spring 表达式语言
      *
      */
     @Value("胖大鸡")

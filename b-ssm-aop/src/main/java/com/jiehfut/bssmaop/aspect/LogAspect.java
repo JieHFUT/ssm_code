@@ -9,25 +9,63 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
     /**
+     * AOP 简化代理
+     *     切面类
+     *     通知
+     *     横切关注点 * 方法个数 = 连接点
+     *     连接点：JoinPoint
+     *     连接点真正去感兴趣的点叫做切入点：PointCut
+     *     切入点表达式
+     *
+     *
      * 下面是四个通知方法
      * 通过写切入表达式来说明通知方法什么时候执行
-     * 1.在什么时候运行
-     * @Before          方法执行之前执行
-     * @AfterReturning  方法执行正常返回结果后执行
-     * @AfterThrowing   方法执行出现异常执行
-     * @After           方法执行之后执行
+     * 1.todo:在什么时候运行
+     *     @Before          方法执行之前执行（前置通知）
+     *     @AfterReturning  方法执行正常返回结果后执行（返回通知）
+     *     @AfterThrowing   方法执行出现异常执行（异常通知）
+     *     @After           方法执行之后执行（后置通知）
+     *     @Around          环绕通知（环绕通知）
      * 2.在哪一个方法执行
      *  切入点表达式
      *  设置切入点和通知类型：value：切入点表达式配置切入点：即对哪个目标方法进行前置通知
-     *     "execution(public int com.jiehfut.aop.annotationaop.CalculatorImpl.add(int, int ))"
-     *     "访问修饰符 增强方法返回类型 增强方法所在类全路径.方法名称（方法参数）"
-     *     [public] int [com.jiehfut.aop.annotationaop.CalculatorImpl].add(int, int )
+     *     "execution(public int com.jiehfut.aop.annotationaop.CalculatorImpl.add(int, int))"
+     *     "访问修饰符 增强方法返回类型 增强方法所在类全路径.方法名称（方法参数）是否抛异常"
+     *     [public] int [com.jiehfut.aop.annotationaop.CalculatorImpl].add(int, int ) throws Exception
+     *
      *     省略写法：int add(int i, int j)
+     *             * com.jiehfut*.*(..)
+     *
      *     通配符号
      *     *   ：表示任意字符
      *     ..  ：如果在参数位置，代表多个参数，任意类型
      *           如果在类型位置，代表多个层级
      *     最省略；* *(..)
+     *
+     *
+     *
+     * execution：执行什么方法的时候切
+     *
+     * within(type-pattern)：如果目标对象是什么类型的时候切
+     *     within(全类名)
+     * this(type-pattern)：代理对象是什么类型就切入
+     *     切面类时，注入容器的组件是代理类 CGLIB
+     * target(type-pattern)：目标对象是什么类型就切入
+     *     切面类时，注入容器的组件是代理类 CGLIB，目标类型才是自己写的
+     *
+     * args(param-pattern)：参数是什么类型就切入
+     *     args(int, int)
+     *     只要参数是双 int 就切入
+     * bean(bean-id-or-name-pattern)：只要是某个名称的组件就切
+     *     bean(zhangsan)
+     *     只要是 zhangsan这个组件就切
+     * @target(annotation-type)：标注了什么注解的就切
+     *     @target(注解全类名)
+     * @args(annotation-type)：参数上有没有标注注解
+     *     public void test(Myan myan)
+     *     @args(注解全类名...)
+     * @annotation(annotation-type)：方法上有没有标注注解
+     *
      *
      *
      */
@@ -45,7 +83,6 @@ public class LogAspect {
     // 异常 @AfterThrowing、
     // 后置 @After()、
     // 环绕 @Around()、
-
 
 
     // 1.前置 @Before(value = "切入点表达式配置切入点")、

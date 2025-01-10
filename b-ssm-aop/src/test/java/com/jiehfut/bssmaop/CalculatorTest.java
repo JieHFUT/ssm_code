@@ -5,8 +5,11 @@ import com.jiehfut.bssmaop.calculator.impl.*;
 import com.jiehfut.bssmaop.service.UserService;
 import com.jiehfut.bssmaop.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class CalculatorTest {
 
     @Test
@@ -45,12 +48,62 @@ public class CalculatorTest {
     }
 
     
-    @Test
+    @Test // 动态代理
     public void testUserService(){
         DynamicProxy dynamicProxy = new DynamicProxy(new UserServiceImpl());
         UserService service = (UserService) dynamicProxy.getProxy();
         service.saveUser();
     }
+
+    
+
+    @Autowired
+    Calculator calculator; // 容器中是它的代理对象
+
+    @Autowired
+    UserService userService;
+
+    @Test
+    public void testAopAspect(){
+        System.out.println("实现类：" + calculator);
+        System.out.println("实现类类型：" + calculator.getClass());
+
+        calculator.add(15, 85);
+        // 实现类：com.jiehfut.bssmaop.calculator.impl.CalculatorImpl@6436e181
+        // 实现类类型：class com.jiehfut.bssmaop.calculator.impl.CalculatorImpl$$SpringCGLIB$$0
+        // 环绕通知 => 目标方法之前执行
+        // Logger-->前置通知，方法名称是：add，参数是：[15, 85]
+        // 方法内部 result = 100
+        // Logger-->返回通知，方法名称是：add，目标方法的返回结果是：100
+        // Logger-->后置通知，方法名称是：add
+        // 环绕通知 => 目标方法返回值之后执行
+        // 环绕通知 => 目标方法执行完毕后执行
+
+        /**
+         * 很明显有了切面类后，容器中组件就不是原生的该类了
+         * 容器中的组件将会是 spring 中的 CGLIB 为其产生的一个代理对象
+         * CGLIB：优点
+         *     jdk 做代理对象，必须是有接口
+         *     CGLIB 可以为万物产生代理，没有接口也行
+         *
+         * 目标方法执行之前会进行很多回调 => 增强器（类 - advised - advisors - 集合里嵌入了增强器链）
+         * 切面中的所有通知方法就为增强器，这些增强器会被组织成为一个链路放到集合中
+         * 目标方法真正执行前后会去增强器链中执行需要提前执行的方法
+         */
+    }
+
+    @Test
+    public void testUserServiceAspect(){
+        System.out.println("实现类：" + userService);
+        System.out.println("实现类类型；" + userService.getClass());
+        userService.saveUser();
+        // 实现类：com.jiehfut.bssmaop.service.impl.UserServiceImpl@7364eed1
+        // 实现类类型；class com.jiehfut.bssmaop.service.impl.UserServiceImpl
+        // save user....
+    }
+
+
+
 
 
 }

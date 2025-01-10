@@ -19,9 +19,10 @@ public class SpringLifeCycle implements InitializingBean, DisposableBean {
      * 是什么时候进行依赖注入的呢？
      */
     public Car car;
+
     @Autowired
     public void setCar(Car car) {
-        System.out.println("********* SpringLifeCycle 进行依赖注入" + car);
+        System.out.println("********* SpringLifeCycle（setCar） 进行依赖注入" + car);
         this.car = car;
     }
 
@@ -88,7 +89,6 @@ public class SpringLifeCycle implements InitializingBean, DisposableBean {
     @PreDestroy
     public void preDestroy() {
         System.out.println("********* 这是注解 @PreDestroy 标明的用于在组件销毁之前进行执行的方法...");
-
     }
 
 

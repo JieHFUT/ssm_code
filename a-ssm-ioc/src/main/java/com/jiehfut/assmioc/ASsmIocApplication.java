@@ -310,7 +310,6 @@ public class ASsmIocApplication {
 //        for (String beanDefinitionName : beanDefinitionNames) {
 //            System.out.println(beanDefinitionName);
 //        }
-//
 //    }
 
 

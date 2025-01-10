@@ -4,6 +4,10 @@ import org.springframework.context.annotation.Profile;
 
 import java.lang.reflect.Proxy;
 
+/**
+ * 动态代理类对象的封装
+ *
+ */
 public class DynamicProxyStatic {
 
     public static Object getProxyInstance(Object target) {
