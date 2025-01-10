@@ -50,7 +50,7 @@ public class PermissionAspect {
         System.out.println("Permission-->异常通知，方法名称是：" + name + "，异常信息是：" + ex);
     }
 
-    // 5.环绕 @Around()、针对 try-catch
+/*    // 5.环绕 @Around()、针对 try-catch
     @Around(value = "execution(* com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.*(..))")
     public Object afterAround(ProceedingJoinPoint joinPoint) {
         // 使用 joinPoint 可以获得增强方法的相关信息
@@ -69,7 +69,7 @@ public class PermissionAspect {
             System.out.println("环绕通知（Permission） => 目标方法执行完毕后执行");
         }
         return result;
-    }
+    }*/
 
     // 重用切入点表达式
     @Pointcut(value = "execution(* com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.*(..))")

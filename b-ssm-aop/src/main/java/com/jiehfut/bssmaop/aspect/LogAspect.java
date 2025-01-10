@@ -2,7 +2,6 @@ package com.jiehfut.bssmaop.aspect;
 
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
@@ -11,6 +10,15 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 
     /**
+     * AOP 使用场景：模板化的统一的业务逻辑（步骤确定的）
+     *             事务（获取连接、设置非自动提交、执行SQL、封装返回类、正常就提交/异常就回滚、关闭连接）
+     *             权限-目标方法(@Admin)=>（拿到用户身份，拿到目标方法标注的所有注解、判断是否注解指定的身份用户、是就执行目标方法/不是就记录非法请求）
+     *             日志记录
+     *             异常处理
+     *             性能监控
+     *             缓存管理
+     *             ...
+     *
      * AOP 简化代理
      *     切面类
      *     通知
@@ -148,7 +156,7 @@ public class LogAspect {
     }
 
 
-    // 5.环绕 @Around()、针对 try-catch
+/*    // 5.环绕 @Around()、针对 try-catch
     @Around(value = "execution(* com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.*(..))")
     public Object afterAround(ProceedingJoinPoint joinPoint) {
         // 使用 joinPoint 可以获得增强方法的相关信息
@@ -167,7 +175,7 @@ public class LogAspect {
             System.out.println("环绕通知（Logger） => 目标方法执行完毕后执行");
         }
         return result;
-    }
+    }*/
 
 
     // 重用切入点表达式
