@@ -5,12 +5,15 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 
 // 权限切面类
+@Order(1) // 多切面执行顺序
 @Aspect // 表示是一个切面类
 @Component // 表示在 ioc 容器中进行管理
 public class PermissionAspect {
@@ -71,5 +74,6 @@ public class PermissionAspect {
     // 重用切入点表达式
     @Pointcut(value = "execution(* com.jiehfut.bssmaop.calculator.impl.CalculatorImpl.*(..))")
     public void pointCut() {}
+
 
 }

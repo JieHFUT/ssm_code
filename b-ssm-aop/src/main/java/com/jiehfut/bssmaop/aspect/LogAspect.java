@@ -5,6 +5,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -76,6 +77,7 @@ import java.util.Arrays;
      */
 
 // 日志切面类
+@Order(2) // 多切面执行顺序
 @Aspect // 表示是一个切面类
 @Component // 表示在 ioc 容器中进行管理
 public class LogAspect {
@@ -178,5 +180,6 @@ public class LogAspect {
 /**
  * 切面的优先级 @Order() 来控制
  * 如果某一个切入点被不止一个切面类切入，切面顺序是什么？（多切面的执行顺序）
- *
+ * 不设置就是安装类名首字母顺序
+ * 在切面类上使用 @Order(1) 来控制执行顺序：数字越小，优先级越高，先执行
  */

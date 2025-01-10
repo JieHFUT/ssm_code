@@ -101,6 +101,7 @@ public class CalculatorTest {
 
         /**
          * 多切面类执行顺序
+         * 不设置就是安装类名首字母顺序
 
          实现类：com.jiehfut.bssmaop.calculator.impl.CalculatorImpl@67bb4dcd
          实现类类型：class com.jiehfut.bssmaop.calculator.impl.CalculatorImpl$$SpringCGLIB$$0
