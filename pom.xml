@@ -15,5 +15,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <modules>
+        <module>a-ssm-ioc</module>
+        <module>b-ssm-aop</module>
+        <module>c-ssm-datasource</module>
+        <module>d-ssm-transaction</module>
+        <module>e-ssm-webmvc</module>
+    </modules>
+
 
 </project>
