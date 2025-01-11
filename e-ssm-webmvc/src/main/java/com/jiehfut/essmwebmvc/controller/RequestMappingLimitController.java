@@ -74,4 +74,11 @@ public class RequestMappingLimitController {
     }
 
 
+    /**
+     * http  默认端口 80
+     * https 默认端口 443
+     * http://www.example.com:80/path/to/myfile.html?keya=valuea&keyb=valueb#some
+     * #some 叫做锚点，前端用来做锚点的，不会发给后端服务器（页面定位使用）
+     */
+
 }
