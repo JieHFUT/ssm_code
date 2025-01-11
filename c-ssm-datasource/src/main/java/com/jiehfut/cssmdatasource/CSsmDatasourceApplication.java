@@ -13,14 +13,13 @@ public class CSsmDatasourceApplication {
         // 1.创建 ioc 容器
         ConfigurableApplicationContext ioc = SpringApplication.run(CSsmDatasourceApplication.class, args);
         // 2.获取注册的组件
-        Person zhangsan = (Person) ioc.getBean("zhangsan");
+        Person zhangsan = (Person) ioc.getBean(Person.class);
+        System.out.println("zhangsan = " + zhangsan);
     }
 
 
 
-
-
-    public static void mainOld(String[] args) {
+    public static void mainOriginal(String[] args) {
         // 通过配置信息获取 bean 组件
         ClassPathXmlApplicationContext ioc =
                 new ClassPathXmlApplicationContext("classpath:Person.xml");
