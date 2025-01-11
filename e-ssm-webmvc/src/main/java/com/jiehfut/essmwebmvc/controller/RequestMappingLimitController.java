@@ -24,10 +24,10 @@ public class RequestMappingLimitController {
       String[] path() default {};
 
       RequestMethod[] method() default {};
-      String[] params() default {};
-      String[] headers() default {};
-      String[] consumes() default {};
-      String[] produces() default {};
+      String[] params() default {};   限制请求参数
+      String[] headers() default {};  限制请求头信息
+      String[] consumes() default {}; 限制请求参数类型
+      String[] produces() default {}; 限制响应参数类型
       }
 
       路径变量：@PathVariable
@@ -79,6 +79,11 @@ public class RequestMappingLimitController {
      * https 默认端口 443
      * http://www.example.com:80/path/to/myfile.html?keya=valuea&keyb=valueb#some
      * #some 叫做锚点，前端用来做锚点的，不会发给后端服务器（页面定位使用）
+     *
+     * get 请求一般携带不了大量数据，这种携带大量数据一般放在 post 请求
+     * 浏览器一般称为用户代理 请求头中 - User-Agent
+     *
+     *
      */
 
 }
