@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 
 @Service
@@ -21,9 +24,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    @Transactional(timeout = 3) // 一旦超过约定时间的秒数，超时就会回滚
-    @Transactional()
-    public void checkout(String username, Integer bookId, Integer buyNum) {
+    public void checkout(String username, Integer bookId, Integer buyNum) throws IOException {
         // 1.查询图书信息
         Book book = bookDao.getBookById(bookId);
         // 2.扣钱
@@ -32,9 +33,29 @@ public class UserServiceImpl implements UserService {
         // 3.扣减库存
         bookDao.updateBook(bookId, buyNum);
 
-        // 异常 测试事务是否回滚
+        // 异常 测试事务是否回滚，运行时异常回滚
         // int num = 10 / 0;
+
+        // 测试编译时异常，发现不回滚
+        FileInputStream fileInputStream = new FileInputStream("D:\\12345.txt");
+        System.out.println("文件长度 = " + fileInputStream.available());
     }
+
+    @Transactional(timeout = 3) // 一旦超过约定时间的秒数，超时就会回滚（超时时间是从事务这个方法开始进入到最后一次数据库 DAO 操作完成的时间）
+    public void timeout(){};
+
+    @Transactional(readOnly = true) // 只读操作，可以开启底层优化
+    public void readOnly(){};
+
+    @Transactional(rollbackFor = {IOException.class, FileNotFoundException.class}) // 指明哪些编译时异常需要回滚（如指定 IOException 下面的读取文件异常就会回滚）=> 运行时异常 + 指定异常
+    // 运行时异常（unchecked exception - 非受检异常）=> 回滚
+    // 编译时异常（checked exception - 受检异常）=> 不回滚
+    public void rollbackFor(){};
+    @Transactional(rollbackForClassName = {"java.io.IOException", "java.io.FileNotFoundException"})
+    public void rollbackForClassName(){};
+
+    @Transactional(noRollbackFor = ArithmeticException.class) // 指定哪些运行时异常不去回滚
+    public void noRollbackFor(){};
 
 
 
