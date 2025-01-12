@@ -3,8 +3,15 @@ package com.jiehfut.hssmwebmvcpractice.advice;
 
 import com.jiehfut.hssmwebmvcpractice.common.R;
 import com.jiehfut.hssmwebmvcpractice.exception.BizException;
+import com.jiehfut.hssmwebmvcpractice.exception.BizExceptionEnume;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 对控制层利用切面机制进行增强 - 从而统一处理异常行为
@@ -34,8 +41,29 @@ public class GlobalExceptionHandler {
     public R bizExceptionHandler(BizException e) {
         Integer code = e.getCode();
         String msg = e.getMsg();
-        return R.error(code, msg);
+        return R.error(code, "GlobalExceptionHandler：" + msg);
     }
+
+    /**
+     * 方法参数没有通过校验异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public R methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        // 说明校验错误信息，拿到所有错误信息
+        Map<String, String> errorMap = new HashMap<>();
+        for (FieldError fieldError : bindingResult.getFieldErrors()) {
+            // 1.拿到出错的属性名
+            String fieldName = fieldError.getField();
+            // 2.拿到默认出错消息
+            String errorMessage = fieldError.getDefaultMessage();
+            errorMap.put(fieldName, errorMessage);
+        }
+        return R.error(BizExceptionEnume.EMPLOYEE_DATA_VALID, errorMap);
+    }
+
 
 
 }

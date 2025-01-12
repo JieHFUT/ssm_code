@@ -21,8 +21,13 @@ public class Employee {
      * 1.导入校验包：spring-boot-starter-validation
      * 2.编写校验注解
      * 3.需要校验的地方需要对 springmvc 声明 @Valid
+     *   如果校验不通过，目标方法不执行，直接响应异常
+     * 4.使用在目标属性后面跟着注解：使用 BindingResult 接收校验出错的信息（封装校验结果）
+     *   使用该注解，校验不通过也会继续执行控制器方法
+     * 5.可以不写 BindingResult 接收出错信息，让其校验错误通过全局处理器捕获异常
      *
-     * 如果校验不通过，目标方法不执行
+     *
+     *
      */
 
     private Long id;
