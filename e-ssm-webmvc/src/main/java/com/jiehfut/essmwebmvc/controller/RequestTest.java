@@ -190,7 +190,7 @@ public class RequestTest {
 
     /**
      * 接收文件，使用 spring 封装的用于接收文件的类
-     * 接收使用
+     * 接收使用 @RequestParam || @RequestPart
      * 1.@RequestParam("headerImg") 取出对应的文件项（单个就用 MultipartFile，多个就用 MultipartFile[]）
      * 2.注意文件大小限制配置
      *
@@ -276,6 +276,9 @@ public class RequestTest {
          }
          */
     }
+
+
+
 
 
 
