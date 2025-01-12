@@ -3,6 +3,8 @@ package com.jiehfut.hssmwebmvcpractice.service.impl;
 
 import com.jiehfut.hssmwebmvcpractice.bean.Employee;
 import com.jiehfut.hssmwebmvcpractice.dao.EmployeeDao;
+import com.jiehfut.hssmwebmvcpractice.exception.BizException;
+import com.jiehfut.hssmwebmvcpractice.exception.BizExceptionEnume;
 import com.jiehfut.hssmwebmvcpractice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int updateEmployee(Employee employee) {
         // 防空处理
-        if (employee.getId() == null) return -1;
+        if (employee.getId() == null) {
+            /**
+             * 中断业务的时候，需要让上层知道中断原因
+             * 前端关心异常状态，后端关心业务流程处理
+             * 推荐：后端只要编写正确的业务逻辑，如果出现业务逻辑，后端通过抛出异常的方式提前中断业务逻辑，让前端感知异常
+             *
+             */
+            throw new BizException(BizExceptionEnume.EMPLOYEE_ID_NO_EXIST);
+        }
         Employee employeeById = getEmployeeById(employee.getId());
         // 逐个覆盖（没有传递的保持原值）
         if (employeeById == null) return -2;

@@ -2,6 +2,7 @@ package com.jiehfut.hssmwebmvcpractice.advice;
 
 
 import com.jiehfut.hssmwebmvcpractice.common.R;
+import com.jiehfut.hssmwebmvcpractice.exception.BizException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -26,6 +27,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public R exceptionHandler(Exception e) {
         return R.error("GlobalExceptionHandler：" + e.getMessage());
+    }
+
+
+    @ExceptionHandler(value = BizException.class)
+    public R bizExceptionHandler(BizException e) {
+        Integer code = e.getCode();
+        String msg = e.getMsg();
+        return R.error(code, msg);
     }
 
 

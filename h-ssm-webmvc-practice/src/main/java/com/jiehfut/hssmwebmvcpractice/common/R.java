@@ -1,5 +1,6 @@
 package com.jiehfut.hssmwebmvcpractice.common;
 
+import com.jiehfut.hssmwebmvcpractice.exception.BizExceptionEnume;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,13 @@ public class R<T> {
 
     public static R error(String msg) {
         return new R(-1, msg, null);
+    }
+
+    public static R error(int code, String msg) {
+        return new R(code, msg, null);
+    }
+
+    public static R error(BizExceptionEnume bizExceptionEnume, Object data) {
+        return new R(bizExceptionEnume.getCode(), bizExceptionEnume.getMsg(), data);
     }
 }
