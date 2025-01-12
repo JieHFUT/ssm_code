@@ -11,7 +11,6 @@ public interface EmployeeDao {
      */
     Employee getEmployeeById(Long id);
 
-
     /**
      * 新增员工
      * @param employee
@@ -29,4 +28,6 @@ public interface EmployeeDao {
      * @param id
      */
     int deleteEmployee(Long id);
+
+    
 }
