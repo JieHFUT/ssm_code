@@ -12,4 +12,11 @@ public class Person {
     private String password;
     private String cellphone;
     private boolean agreement;
+
+    // 级联
+    private Address address;
+
+    private String sex;
+    private String[] hobby;
+    private String grade;
 }
