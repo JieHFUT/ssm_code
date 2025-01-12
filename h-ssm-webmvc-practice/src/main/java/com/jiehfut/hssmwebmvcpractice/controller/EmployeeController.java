@@ -90,6 +90,7 @@ public class EmployeeController {
      */
     @DeleteMapping("/employee/{id}")
     public R<Boolean> delete(@PathVariable("id") Long id) {
+        System.out.println("根据用户 ID 查询用户信息控制器已经执行...");
         int i = employeeService.deleteEmployee(id);
         R r = new R<>(200, "ok", true);
         return i == 1 ? r : new R<Boolean>(i, "error", false);
@@ -114,6 +115,7 @@ public class EmployeeController {
      */
     @GetMapping("/employees")
     public R<List<Employee>> getAll() {
+        System.out.println("获取所有的用户信息...");
         List<Employee> employees = employeeService.getAllEmployee();
         return new R<>(200, "ok", employees);
     }
