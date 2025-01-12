@@ -1,7 +1,8 @@
-package com.jiehfut.gssmwebmvcrestful.dao.impl;
+package com.jiehfut.hssmwebmvcpractice.dao.impl;
 
-import com.jiehfut.gssmwebmvcrestful.bean.Employee;
-import com.jiehfut.gssmwebmvcrestful.dao.EmployeeDao;
+
+import com.jiehfut.hssmwebmvcpractice.bean.Employee;
+import com.jiehfut.hssmwebmvcpractice.dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

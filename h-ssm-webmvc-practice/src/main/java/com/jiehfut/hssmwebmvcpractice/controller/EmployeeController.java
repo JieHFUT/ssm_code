@@ -1,9 +1,9 @@
-package com.jiehfut.gssmwebmvcrestful.controller;
+package com.jiehfut.hssmwebmvcpractice.controller;
 
 
-import com.jiehfut.gssmwebmvcrestful.bean.Employee;
-import com.jiehfut.gssmwebmvcrestful.common.R;
-import com.jiehfut.gssmwebmvcrestful.service.EmployeeService;
+import com.jiehfut.hssmwebmvcpractice.bean.Employee;
+import com.jiehfut.hssmwebmvcpractice.common.R;
+import com.jiehfut.hssmwebmvcpractice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -117,10 +117,6 @@ public class EmployeeController {
         List<Employee> employees = employeeService.getAllEmployee();
         return new R<>(200, "ok", employees);
     }
-
-
-
-
 
 
 }

@@ -1,7 +1,9 @@
-package com.jiehfut.gssmwebmvcrestful.service;
+package com.jiehfut.hssmwebmvcpractice.service;
 
 
-import com.jiehfut.gssmwebmvcrestful.bean.Employee;
+
+
+import com.jiehfut.hssmwebmvcpractice.bean.Employee;
 
 import java.util.List;
 

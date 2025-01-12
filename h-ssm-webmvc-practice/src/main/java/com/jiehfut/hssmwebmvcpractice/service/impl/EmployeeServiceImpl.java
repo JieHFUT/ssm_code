@@ -1,8 +1,9 @@
-package com.jiehfut.gssmwebmvcrestful.service.impl;
+package com.jiehfut.hssmwebmvcpractice.service.impl;
 
-import com.jiehfut.gssmwebmvcrestful.bean.Employee;
-import com.jiehfut.gssmwebmvcrestful.dao.EmployeeDao;
-import com.jiehfut.gssmwebmvcrestful.service.EmployeeService;
+
+import com.jiehfut.hssmwebmvcpractice.bean.Employee;
+import com.jiehfut.hssmwebmvcpractice.dao.EmployeeDao;
+import com.jiehfut.hssmwebmvcpractice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

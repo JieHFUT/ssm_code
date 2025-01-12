@@ -1,11 +1,12 @@
-package com.jiehfut.gssmwebmvcrestful.service;
+package com.jiehfut.hssmwebmvcpractice.dao;
 
 
-import com.jiehfut.gssmwebmvcrestful.bean.Employee;
+
+import com.jiehfut.hssmwebmvcpractice.bean.Employee;
 
 import java.util.List;
 
-public interface EmployeeService {
+public interface EmployeeDao {
 
     /**
      * 根据员工的 ID 来查询员工信息
@@ -32,8 +33,9 @@ public interface EmployeeService {
      */
     int deleteEmployee(Long id);
 
+
     /**
-     * 查询所有员工
+     * 查询所有员工信息
      * @return
      */
     List<Employee> getAllEmployee();

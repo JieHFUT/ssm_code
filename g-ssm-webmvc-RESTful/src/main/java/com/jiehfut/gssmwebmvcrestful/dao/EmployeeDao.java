@@ -2,6 +2,8 @@ package com.jiehfut.gssmwebmvcrestful.dao;
 
 import com.jiehfut.gssmwebmvcrestful.bean.Employee;
 
+import java.util.List;
+
 public interface EmployeeDao {
 
     /**
@@ -29,5 +31,10 @@ public interface EmployeeDao {
      */
     int deleteEmployee(Long id);
 
-    
+
+    /**
+     * 查询所有员工信息
+     * @return
+     */
+    List<Employee> getAllEmployee();
 }
