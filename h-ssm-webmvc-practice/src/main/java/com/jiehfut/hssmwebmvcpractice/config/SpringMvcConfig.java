@@ -63,6 +63,17 @@ public class SpringMvcConfig {
              001-控制器方法执行之前 ====> 拦截器 preHandle 放行
              002-控制器方法执行之前 ====> 拦截器 preHandle 放行
              001-控制器方法响应之前 ====> 拦截器 afterCompletion
+
+
+             * 002 的 postHandle 异常
+             001-控制器方法执行之前 ====> 拦截器 preHandle 放行
+             002-控制器方法执行之前 ====> 拦截器 preHandle 放行
+             003-控制器方法执行之前 ====> 拦截器 preHandle 放行
+             003-控制器方法执行之后 ====> 拦截器 postHandle
+             002-控制器方法执行之后 ====> 拦截器 postHandle (其方法内异常)
+             003-控制器方法响应之前 ====> 拦截器 afterCompletion
+             002-控制器方法响应之前 ====> 拦截器 afterCompletion
+             001-控制器方法响应之前 ====> 拦截器 afterCompletion
              */
         };
     }

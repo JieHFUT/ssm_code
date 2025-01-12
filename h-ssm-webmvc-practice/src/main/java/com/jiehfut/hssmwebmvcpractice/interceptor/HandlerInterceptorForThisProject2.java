@@ -22,7 +22,7 @@ public class HandlerInterceptorForThisProject2 implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("002-控制器方法执行之前 ====> 拦截器 preHandle 放行");
         // 放行：chain.doFilter(request, response)
-        return false;
+        return true;
     }
 
     @Override
