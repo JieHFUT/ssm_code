@@ -5,15 +5,24 @@ import com.jiehfut.hssmwebmvcpractice.bean.Employee;
 import com.jiehfut.hssmwebmvcpractice.common.R;
 import com.jiehfut.hssmwebmvcpractice.exception.BizExceptionEnume;
 import com.jiehfut.hssmwebmvcpractice.service.EmployeeService;
+import com.jiehfut.hssmwebmvcpractice.vo.request.EmployeeAddVo;
+import com.jiehfut.hssmwebmvcpractice.vo.request.EmployeeUpdateVo;
+import com.jiehfut.hssmwebmvcpractice.vo.response.EmployeeQueryAllVo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * CORS policy：同源策略（限制ajax请求，图片，css，js）； 跨域问题
@@ -35,6 +44,8 @@ import java.util.Map;
  *
  *
  */
+
+@Tag(name = "", description = "员工管理控制器") // 描述接口文档中该类的作用
 @CrossOrigin  //允许跨域
 @RestController
 @RequestMapping("/api/v1")
@@ -78,6 +89,7 @@ public class EmployeeController {
      * @return
      */
 
+    @Operation(summary = "请求携带 Employee employee 添加员工记录")
     @PostMapping("/employee")
     public R<Boolean> create(@RequestBody @Valid  Employee employee, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
@@ -98,17 +110,36 @@ public class EmployeeController {
     }
 
     /**
-     * 最终的数据校验处理方式
+     * 新增员工信息 - 最终的数据校验处理方式
      * 校验不匹配由全局异常直接捕捉，不会执行该方法，直接由全局异常响应
      * @param employee
      * @return
      */
-    @PostMapping("/addemployee")
-    public R<Boolean> create(@RequestBody @Valid  Employee employee) {
+    @Operation(summary = "请求携带 Employee employee 添加员工记录2")
+    @PostMapping("/employee2")
+    public R<Boolean> create2(@RequestBody @Valid  Employee employee) {
         int i = employeeService.addEmployee(employee);
         R r = new R<>(200, "ok", true);
         return i == 1 ? r : new R<Boolean>(i, "error", false);
     }
+
+    @Operation(summary = "请求携带 Employee employee 添加员工记录3")
+    @PostMapping("/employee3")
+    public R<Boolean> create3(@RequestBody @Valid EmployeeAddVo employeeAddVo) {
+        /**
+         * 1.通过数据校验
+         * 2.spring 提供了一个 BeanUtils 工具用于处理 pojo 和 VO 对象的转换
+         *   进行属性对拷
+         */
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeAddVo, employee);
+
+        int i = employeeService.addEmployee(employee);
+        R r = new R<>(200, "ok", true);
+        return i == 1 ? r : new R<Boolean>(i, "error", false);
+    }
+
+
 
 
 
@@ -118,6 +149,11 @@ public class EmployeeController {
      * @param id
      * @return
      */
+    @Operation(summary = "根据 ID 查看某个员工信息")
+    @Parameters({
+            // 用来在接口文档中描述属性信息的（参数是路径上的，且是必须的）
+            @Parameter(name = "id", description = "员工ID", in = ParameterIn.PATH, required = true)
+    })
     @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
     public Employee get(@PathVariable("id") Long id) {
         return employeeService.getEmployeeById(id);
@@ -129,6 +165,7 @@ public class EmployeeController {
      * @param id
      * @return
      */
+    @Operation(summary = "根据 ID 删除某个员工信息")
     @DeleteMapping("/employee/{id}")
     public R<Boolean> delete(@PathVariable("id") Long id) {
         System.out.println("根据用户 ID 查询用户信息控制器已经执行...");
@@ -139,27 +176,76 @@ public class EmployeeController {
 
     /**
      * 修改某个员工信息
+     * 分组校验（使用 @Validated 注解完成）
      * @param employee
      * @return
      */
+    @Operation(summary = "修改某个员工信息")
     @PutMapping("/employee")
-    public R<Boolean> update(@RequestBody Employee employee) {
+    public R<Boolean> update(@RequestBody @Validated Employee employee) {
+        int i = employeeService.updateEmployee(employee);
+        R r = new R<>(200, "ok", true);
+        return i == 1 ? r : new R<Boolean>(i, "error", false);
+    }
+
+    @PutMapping("/employee2")
+    @Operation(summary = "更新某个员工信息")
+    public R<Boolean> update2(@RequestBody @Validated EmployeeUpdateVo employeeUpdateVo) {
+        // 进行属性对拷
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeUpdateVo, employee);
+
         int i = employeeService.updateEmployee(employee);
         R r = new R<>(200, "ok", true);
         return i == 1 ? r : new R<Boolean>(i, "error", false);
     }
 
 
+
+
     /**
      * 查询全部员工信息
+     * 不响应 age 信息，使用 EmployeeQueryAllVo 对象集合进行响应数据
      * @return
      */
     @GetMapping("/employees")
-    public R<List<Employee>> getAll() {
+    @Operation(summary = "查询所有员工信息")
+    public R<List<EmployeeQueryAllVo>> getAll() {
         System.out.println("获取所有的用户信息...");
         List<Employee> employees = employeeService.getAllEmployee();
-        return new R<>(200, "ok", employees);
+
+        // 查询的员工列表转成 EmployeeQueryAllVo 列表，然后响应给前端
+        List<EmployeeQueryAllVo> employeeQueryAllVos = new ArrayList<>();
+
+        for (Employee employee : employees) {
+            // 对拷
+            EmployeeQueryAllVo employeeQueryAllVo = new EmployeeQueryAllVo();
+            BeanUtils.copyProperties(employee, employeeQueryAllVo);
+            employeeQueryAllVos.add(employeeQueryAllVo);
+        }
+
+        return new R<>(200, "ok", employeeQueryAllVos);
     }
 
+    /**
+     * 使用流进行数据的类型转换
+     * @return
+     */
+    @GetMapping("/employees2")
+    @Operation(summary = "查询全部员工信息2")
+    public R<List<EmployeeQueryAllVo>> getAll2() {
+        System.out.println("获取所有的用户信息...");
+        List<Employee> employees = employeeService.getAllEmployee();
+
+        // 查询的员工列表转成 EmployeeQueryAllVo 列表，然后响应给前端
+        List<EmployeeQueryAllVo> collect = employees.stream()
+                .map(employee -> {
+                    EmployeeQueryAllVo employeeQueryAllVo = new EmployeeQueryAllVo();
+                    BeanUtils.copyProperties(employee, employeeQueryAllVo);
+                    return employeeQueryAllVo;
+                }).collect(Collectors.toList());
+
+        return new R<>(200, "ok", collect);
+    }
 
 }

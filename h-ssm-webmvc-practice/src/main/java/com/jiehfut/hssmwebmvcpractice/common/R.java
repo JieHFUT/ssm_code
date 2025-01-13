@@ -1,16 +1,24 @@
 package com.jiehfut.hssmwebmvcpractice.common;
 
 import com.jiehfut.hssmwebmvcpractice.exception.BizExceptionEnume;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Schema(description = "统一返回对象")
 @AllArgsConstructor
 @NoArgsConstructor
 public class R<T> {
+
+    @Schema(description = "状态码")
     private int code;
+
+    @Schema(description = "描述信息")
     private String msg;
+
+    @Schema(description = "响应对象")
     private T data;
 
     public static R ok() {

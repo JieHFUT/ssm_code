@@ -1,8 +1,7 @@
-package com.jiehfut.hssmwebmvcpractice.bean;
+package com.jiehfut.hssmwebmvcpractice.vo.request;
 
 
 import com.jiehfut.hssmwebmvcpractice.annotation.Address;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,11 +10,10 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.Date;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
+public class EmployeeAddVo {
 
     /**
      * 数据校验
@@ -30,7 +28,6 @@ public class Employee {
      *
      */
 
-    private Long id;
 
     @NotEmpty(message = "姓名不能为空") // 不能是 null，空串，否则给前端提示信息：姓名不能为空
     private String name;
@@ -67,8 +64,6 @@ public class Employee {
     private BigDecimal salary;
 
     private Date birth;
-
-
     /**
      * 设计模式：单一职责
      * 各种 xxO
@@ -77,6 +72,7 @@ public class Employee {
      * TO（Transfer Object）：专门用来传输数据的对象（如控制层传输给服务层，服务层互相传送）
      * VO（View / Value Object）：值对象 / 视图对象（专门用来封装前端数据的对象）
      *    => 给前端返回信息需要进行脱敏处理（脱去敏感信息）
+     *
      *
      *
      */
