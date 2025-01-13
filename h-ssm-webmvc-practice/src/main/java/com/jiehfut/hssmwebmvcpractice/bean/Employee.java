@@ -1,6 +1,7 @@
 package com.jiehfut.hssmwebmvcpractice.bean;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jiehfut.hssmwebmvcpractice.annotation.Address;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.*;
@@ -66,6 +67,10 @@ public class Employee {
 
     private BigDecimal salary;
 
+
+    // 请求中直接带日期字符串是不行的，不能反序列化（除非按照格式来），只可以从数据库进行序列化成字符串给前端
+    // 使用 @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date birth;
 
 

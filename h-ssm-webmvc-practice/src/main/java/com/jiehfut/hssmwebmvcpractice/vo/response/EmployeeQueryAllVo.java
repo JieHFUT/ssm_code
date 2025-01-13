@@ -30,4 +30,5 @@ public class EmployeeQueryAllVo {
     private BigDecimal salary;
 
 
+
 }
