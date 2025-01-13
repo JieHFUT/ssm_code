@@ -77,6 +77,7 @@ public class EmployeeController {
      * @param employee
      * @return
      */
+
     @PostMapping("/employee")
     public R<Boolean> create(@RequestBody @Valid  Employee employee, BindingResult bindingResult) {
         if (!bindingResult.hasErrors()) {
@@ -95,6 +96,21 @@ public class EmployeeController {
         }
         return R.error(BizExceptionEnume.EMPLOYEE_DATA_VALID, errorMap);
     }
+
+    /**
+     * 最终的数据校验处理方式
+     * 校验不匹配由全局异常直接捕捉，不会执行该方法，直接由全局异常响应
+     * @param employee
+     * @return
+     */
+    @PostMapping("/addemployee")
+    public R<Boolean> create(@RequestBody @Valid  Employee employee) {
+        int i = employeeService.addEmployee(employee);
+        R r = new R<>(200, "ok", true);
+        return i == 1 ? r : new R<Boolean>(i, "error", false);
+    }
+
+
 
     /**
      * 查询某个员工信息

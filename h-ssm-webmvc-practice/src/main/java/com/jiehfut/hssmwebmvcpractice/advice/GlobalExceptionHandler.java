@@ -27,7 +27,7 @@ import java.util.Map;
 
 // @ResponseBody
 // @ControllerAdvice // 告诉 springmvc 这是全局处理异常的类
-@RestControllerAdvice
+@RestControllerAdvice // 合并注解
 public class GlobalExceptionHandler {
 
 
@@ -46,6 +46,7 @@ public class GlobalExceptionHandler {
 
     /**
      * 方法参数没有通过校验异常
+     * 被全局异常处理器捕捉到以后，不会执行控制层方法，直接响应异常 JSON 信息
      * @param e
      * @return
      */
