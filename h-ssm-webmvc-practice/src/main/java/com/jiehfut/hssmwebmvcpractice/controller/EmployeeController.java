@@ -68,9 +68,12 @@ public class EmployeeController {
     /**
      * 新增员工信息
      * 前端发送请求，将员工信息以 json 字符串传递过来
-     * 使用 @Valid 进行数据校验 - 校验失败业务就不会执行了
-     * 要求：校验出错，响应错误信息（code，msg，data）
-     *      使用 BindingResult 接收校验出错的信息（封装校验结果）
+     * 使用 @Valid 进行数据校验 - 校验失败业务就不会执行了 - 直接响应异常
+     *
+     * 要求：校验出错，在控制层方法体里响应错误信息（code，msg，data）
+     *      使用 BindingResult 接收校验出错的信息（封装校验结果）- 进行判断
+     *
+     * 最终的处理方式是利用全局异常处理捕捉 MethodArgumentNotValidException（参数校验失败异常） 统一返回
      * @param employee
      * @return
      */
@@ -92,7 +95,7 @@ public class EmployeeController {
         }
         return R.error(BizExceptionEnume.EMPLOYEE_DATA_VALID, errorMap);
     }
-    
+
     /**
      * 查询某个员工信息
      * "/employee/id" get
