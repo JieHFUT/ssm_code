@@ -38,4 +38,6 @@ class ISsmSpringbootExampleApplicationTests {
         System.out.println("dog-properties = " + dogProperties);
         System.out.println("name = " + dogProperties.getName());
     }
+
+
 }
