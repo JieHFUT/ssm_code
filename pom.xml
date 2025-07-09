@@ -21,6 +21,11 @@
         <module>c-ssm-datasource</module>
         <module>d-ssm-transaction</module>
         <module>e-ssm-webmvc</module>
+        <module>f-ssm-webmvc-thymeleaf</module>
+        <module>g-ssm-webmvc-RESTful</module>
+        <module>h-ssm-webmvc-practice</module>
+        <module>i-ssm-springboot-example</module>
+        <module>j-ssm-springboot-deep</module>
     </modules>
 
 
